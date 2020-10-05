@@ -1,0 +1,7 @@
+{
+  "name": "HandEval",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

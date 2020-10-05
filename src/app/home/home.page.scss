@@ -1,0 +1,29 @@
+
+svg {
+  transition: transform 0.3s;
+}
+
+.selectedCard {
+  opacity: 1.0;
+}
+
+/* In portrait only one column */
+@media screen and (orientation: portrait) {
+    .column {
+        flex: 100%;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    //align-items: center;
+    align-content: space-between;
+    justify-content: center;
+}
+
+.column {
+    flex: 50%;
+    padding: 8px;
+    align-items: center;
+}
