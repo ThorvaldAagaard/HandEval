@@ -33,7 +33,18 @@ export class HomePage implements OnInit {
   handtype: string = "";
   hcpSum: any;
   dtSum: number;
-  color: string[] = ["#0000FF", "#FF0000", "#FFA500", "#00C000"];
+  color: string[];
+  colorIndex = 0;
+  colors = [["#000000", "#E6180A", "#E6180A", "#000000"],
+   ["#0000FF", "#FF0000", "#FFA500", "#00C000"],
+   ["black", "red", "blue", "green"],
+   ["green", "red", "yellow", "black"],
+   ["black", "red", "orange", "blue"],
+   ["black", "red", "yellow", "blue"],
+   ["black", "red", "orange", "green"],
+   ["black", "red", "yellow", "green"],
+   ["blue", "red", "orange", "pink"],
+  ["black", "orange", "yellow", "pink"]];
   constructor(public platform: Platform, private kaplanRubens: KaplanrubenService) {
     platform.ready().then(() => {
       console.log('Width: ' + platform.width());
@@ -41,6 +52,7 @@ export class HomePage implements OnInit {
       console.log("Orientation:" + (platform.isPortrait() ? "Portait" : "Landscape"))
       this.screen = { "Width": this.platform.width(), "Height": this.platform.height(), "Orientation": (platform.isPortrait() ? "Portait" : "Landscape") }
     });
+    this.color = this.colors[this.colorIndex];
   }
   ngOnInit(): void {
     var scale = 1;
@@ -70,6 +82,16 @@ export class HomePage implements OnInit {
     for (let suit = 0; suit < 4; suit++) {
       for (let index = 14; index > 1; index--) {
         this.cards.push({ "name": "./assets/svg/svg-cards.svg#" + this.suits[suit] + "_" + index, "x": (580 - index * 40), "y": suit * height, "selected": false, "color": this.color[suit] });
+      }
+    }
+  }
+  colorSwitch() {
+    this.colorIndex = (this.colorIndex + 1) % 10;
+    this.color = this.colors[this.colorIndex];
+    for (let suit = 0; suit < 4; suit++) {
+      for (let index = 14; index > 1; index--) {
+        console.log(this.cards[suit * 13 + index - 2])
+        this.cards[suit * 13 + index -2].color =  this.color[suit];
       }
     }
   }
