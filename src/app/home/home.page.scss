@@ -22,6 +22,18 @@ svg {
     justify-content: center;
 }
 
+.column2 {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row2:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .column {
     flex: 50%;
     padding: 8px;
@@ -31,9 +43,32 @@ svg {
 .app-header-statusbar {
 	font-size: 80%;
 	vertical-align: middle;
-	--min-height: 24px !important;
 }
 
 ion-toolbar{
-  --min-height:4%!important;
+  height:28px;
+}
+
+.spades {
+    color: blue;
+    font-size: 100%;
+}
+
+.hearts {
+    color: red;
+    font-size: 100%;
+}
+
+.diamonds {
+    color: orange;
+    font-size: 100%;
+}
+
+.clubs {
+    color: #00C000;
+    font-size: 100%;
+}
+
+.small {
+    font-size: 90%;
 }

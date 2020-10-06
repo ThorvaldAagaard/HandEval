@@ -8,7 +8,8 @@ import { KaplanrubenService } from '../kaplanruben.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  sqc: any = ["To short", "To short", "To short", "To short"];
+  stoppers: any = [0, 0, 0, 0];
   cards: any = [];
   selectedCards: any = [];
   selected = 0;
@@ -27,15 +28,12 @@ export class HomePage implements OnInit {
   dt: any[];
   fnr: number;
   knr: number;
-  stoppers: string = "N/C";
-  scq: string = "N/C";
   ot: number;
   screen: any;
   handtype: string = "";
   hcpSum: any;
-  suitQualityList: any[];
   dtSum: number;
-  color: string[] =  ["#0000FF", "#FF0000","#FFA500","#00C000"];
+  color: string[] = ["#0000FF", "#FF0000", "#FFA500", "#00C000"];
   constructor(public platform: Platform, private kaplanRubens: KaplanrubenService) {
     platform.ready().then(() => {
       console.log('Width: ' + platform.width());
@@ -56,7 +54,8 @@ export class HomePage implements OnInit {
       console.log("scale = " + this.scale);
       this.width = (4 * 169.075) * scale;
       this.height = (2 * 244.640) * scale;
-      height = (244.640 / 6) * scale
+      height = (244.640 / 3); 
+      this.height = ((244.640) + 3 * height) * scale ;
     }
     if (this.platform.isLandscape()) {
       // In landscape the desc takes the left half, and the hand the right half
@@ -68,9 +67,7 @@ export class HomePage implements OnInit {
       console.log("Height = " + this.height);
       height = (244.640 / 3) * scale
     }
-    console.log(this.color);
     for (let suit = 0; suit < 4; suit++) {
-      console.log(this.color[suit]);
       for (let index = 14; index > 1; index--) {
         this.cards.push({ "name": "./assets/svg/svg-cards.svg#" + this.suits[suit] + "_" + index, "x": (580 - index * 40), "y": suit * height, "selected": false, "color": this.color[suit] });
       }
@@ -130,10 +127,10 @@ export class HomePage implements OnInit {
 
   calculateStoppers() {
     // http://www.rpbridge.net/8j17.htm
-    this.stoppers = this.suitStopperCheck(this.spades, 0) + " in <span class='spades'>&spades;</span>, " +
-      this.suitStopperCheck(this.hearts, 1) + " in Hearts, " +
-      this.suitStopperCheck(this.diamonds, 2) + " in Diamonds, " +
-      this.suitStopperCheck(this.clubs, 3) + " in Clubs"
+    this.stoppers[0] = this.suitStopperCheck(this.spades, 0);
+    this.stoppers[0] = this.suitStopperCheck(this.hearts, 1);
+    this.stoppers[0] = this.suitStopperCheck(this.diamonds, 2);
+    this.stoppers[0] = this.suitStopperCheck(this.clubs, 3);
   }
   suitStopperCheck(suit: any[], color: number) {
     var hcp = this.hcpInOneSuit(suit);
@@ -213,15 +210,11 @@ export class HomePage implements OnInit {
   }
 
   findSuitQualities() {
-    this.suitQualityList = [];
-    this.suitQualityList[0] = this.suitQualityCheck(this.spades)
-    this.suitQualityList[1] = this.suitQualityCheck(this.hearts)
-    this.suitQualityList[2] = this.suitQualityCheck(this.diamonds)
-    this.suitQualityList[3] = this.suitQualityCheck(this.clubs)
-    this.scq = this.suitQualityList[0] + " <span class='spades'>&spades;</span>, " +
-      this.suitQualityList[1] + " Hearts, " +
-      this.suitQualityList[2] + " Diamonds, " +
-      this.suitQualityList[3] + " Clubs"
+    this.sqc = [];
+    this.sqc[0] = this.suitQualityCheck(this.spades)
+    this.sqc[1] = this.suitQualityCheck(this.hearts)
+    this.sqc[2] = this.suitQualityCheck(this.diamonds)
+    this.sqc[3] = this.suitQualityCheck(this.clubs)
   }
 
   suitQualityCheck(suit: any[]) {
@@ -297,10 +290,10 @@ export class HomePage implements OnInit {
     this.ot = 0;
     for (let suit = 0; suit < 4; suit++) {
       var thisSuit = this.getSuit(suit);
-      if (this.suitQualityList[suit] == "Solid") {
+      if (this.sqc[suit] == "Solid") {
         this.ot += thisSuit.length;
       } else
-        if (this.suitQualityList[suit] == "Semisolid") {
+        if (this.sqc[suit] == "Semisolid") {
           this.ot += thisSuit.length - 0.5;
         } else {
           if (thisSuit.length > 3) {

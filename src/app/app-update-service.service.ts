@@ -7,8 +7,10 @@ import { AlertController } from '@ionic/angular';
 export class AppUpdateService {
   constructor(private readonly updates: SwUpdate, private alertCtrl: AlertController) {
     this.updates.available.subscribe(event => {
+      console.log('current version is', event.current);
+      console.log('available version is', event.available);
       this.showAppUpdateAlert();
-    });
+    });    
   }
 
   showAppUpdateAlert() {
@@ -19,6 +21,11 @@ export class AppUpdateService {
   }
 
   doAppUpdate() {
+    this.updates.activated.subscribe(event => {
+      console.log('old version was', event.previous);
+      console.log('new version is', event.current);
+    });
+
     this.updates.activateUpdate().then(() => {
       alert("Reloading application");
       document.location.reload();
@@ -34,14 +41,14 @@ export class AppUpdateService {
         text: 'Cancel',
         role: 'cancel',
         cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
+        handler: () => {
+          console.log('Confirm Cancel');
         }
       }, {
         text: 'Ok',
         handler: () => {
           console.log('Confirm Okay');
-          self.doAppUpdate;
+          self.doAppUpdate();
         }
       }],
       mode: 'md'

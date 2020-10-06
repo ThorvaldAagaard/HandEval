@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="app-header-statusbar">
   <ion-toolbar mode="ios">
     <ion-title size="small">
-      Bridge Hand Evaluation. V1.0
+      Bridge Hand Evaluation. V1.0.2
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,7 +11,7 @@
     <div class="column">
       Select cards for the hand to evaluate<br>
       <!-- {{screen?.Width}},{{screen?.Height}},{{screen?.Orientation}},{{scale}},{{width| number : '1.0-0'}},{{height | number : '1.0-0' }} -->
-      <svg [attr.width]="width" [attr.height]="height*0.9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg [attr.width]="width" [attr.height]="height" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g *ngFor="let card of cards" [ngClass]="{'selectedCard': card.selected}" (click)="selectCard(card)">
           <use [attr.href]="card.name" [attr.x]="card.x" [attr.y]="card.y" [attr.transform]="scale" [attr.fill]="card.color" />
 
@@ -22,22 +22,42 @@
       Hand (Click on card to remove)<br>
       <svg [attr.width]="width" [attr.height]="height / 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g *ngFor="let card of selectedCards; let i = index" (click)="unSelectCard(card)">
-          <use *ngIf="card.selected" [attr.href]="card.orig" [attr.x]="i*40" [attr.y]=0 [attr.transform]="scale" [attr.fill]="card.color"/>
+          <use *ngIf="card.selected" [attr.href]="card.orig" [attr.x]="i*40" [attr.y]=0 [attr.transform]="scale" [attr.fill]="card.color" />
         </g>
       </svg>
       <br>
-      High Card Points: {{hcpSum}}<br>
-      Short Suit Points: {{dpr}}<br>
-      Length Points: {{lp}}<br>
-      Kaplan & Rubens: {{knr | number:'1.1-2'}}<br>
-      Freakness Score: {{fnr}}<br>
+      <div class="row2">
+        <div class="column2 small">
+          High Card Points: {{hcpSum}}<br>
+          Kaplan Rubens: {{knr | number:'1.1-1'}}<br>
+          Controls: {{ctr}}<br>
+          Short Suit Points: {{dpr}}<br>
+        </div>
+        <div class="column2 small">
+          Length Points: {{lp}}<br>
+          Freakness Score: {{fnr}}<br>
+          Losing Trick Count: {{loosers}}<br>
+          Offensive Tricks: {{ot | number:'1.0-1'}}<br>
+          Defensive Tricks: {{dtSum | number:'1.0-1'}}<br>
+        </div>
+      </div>
+      <br>
+      <div class="small">
       Handtype: {{handtype}}<br>
-      Losing Trick Count: {{loosers}}<br>
-      Offensive Tricks: {{ot | number:'1.0-1'}}<br>
-      Defensive Tricks: {{dtSum | number:'1.0-1'}}<br>
-      Controls: {{ctr}}<br>
-      Suit Qualities: {{scq}}<br>
-      Stoppers: {{stoppers}}<br>
+      Suit Qualities: <span class="small"><br>{{sqc[0]}} <span class='spades'>&spades;</span>, {{sqc[1]}} <span class='hearts'>&hearts;</span>, {{sqc[2]}} <span
+        class='diamonds'>&diams;</span>, {{sqc[3]}} <span class='clubs'>&clubs;</span></span><br>
+      Stoppers:<br> <span class="small">
+        {{stoppers[0]}} in <span class='spades'>&spades;</span>, {{stoppers[1]}} in <span class='hearts'>&hearts;</span>, {{stoppers[2]}} in <span
+        class='diamonds'>&diams;</span>, {{stoppers[3]}} in <span class='clubs'>&clubs;</span></span><br>
+        <!--
+      Height: {{height | number:'1.0-0'}}<br>
+      Width: {{width | number:'1.0-0'}}<br>
+      Scale: {{scale}}<br>
+      Platform Height: {{platform.height() | number:'1.0-0'}}<br>
+      Platform Width: {{platform.width() | number:'1.0-0'}}<br>
+      Platform Orientation: {{this.platform.isLandscape() ? "Landscape" : "Portrait"}}<br>
+          -->
+      </div>
     </div>
   </div>
 </ion-content>
