@@ -130,7 +130,7 @@ export class HomePage implements OnInit {
 
   calculateStoppers() {
     // http://www.rpbridge.net/8j17.htm
-    this.stoppers = this.suitStopperCheck(this.spades, 0) + " in Spades, " +
+    this.stoppers = this.suitStopperCheck(this.spades, 0) + " in <span class='spades'>&spades;</span>, " +
       this.suitStopperCheck(this.hearts, 1) + " in Hearts, " +
       this.suitStopperCheck(this.diamonds, 2) + " in Diamonds, " +
       this.suitStopperCheck(this.clubs, 3) + " in Clubs"
@@ -218,7 +218,7 @@ export class HomePage implements OnInit {
     this.suitQualityList[1] = this.suitQualityCheck(this.hearts)
     this.suitQualityList[2] = this.suitQualityCheck(this.diamonds)
     this.suitQualityList[3] = this.suitQualityCheck(this.clubs)
-    this.scq = this.suitQualityList[0] + " Spades, " +
+    this.scq = this.suitQualityList[0] + " <span class='spades'>&spades;</span>, " +
       this.suitQualityList[1] + " Hearts, " +
       this.suitQualityList[2] + " Diamonds, " +
       this.suitQualityList[3] + " Clubs"

@@ -237,4 +237,28 @@
 
     --ion-card-background: #1e1e1e;
   }
+
+ion-header.header-md ion-toolbar:first-child {
+    padding-top: 0;
+}  
+
+.spades {
+    color: blue;
+    font-size: 120%;
+}
+
+.hearts {
+    color: red;
+    font-size: 120%;
+}
+
+.diamonds {
+    color: orange;
+    font-size: 120%;
+}
+
+.clubs {
+    color: #00C000;
+    font-size: 120%;
+}
 }

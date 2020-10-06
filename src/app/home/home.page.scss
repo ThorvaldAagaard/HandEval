@@ -27,3 +27,13 @@ svg {
     padding: 8px;
     align-items: center;
 }
+
+.app-header-statusbar {
+	font-size: 80%;
+	vertical-align: middle;
+	--min-height: 24px !important;
+}
+
+ion-toolbar{
+  --min-height:4%!important;
+}
