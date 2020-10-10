@@ -8,7 +8,7 @@ import { KaplanrubenService } from '../kaplanruben.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  sqc: any = ["To short", "To short", "To short", "To short"];
+  sqc: any = ["Too short", "Too short", "Too short", "Too short"];
   stoppers: any = [0, 0, 0, 0];
   cards: any = [];
   selectedCards: any = [];
@@ -79,12 +79,23 @@ export class HomePage implements OnInit {
       console.log("Height = " + this.height);
       height = (244.640 / 3) * scale
     }
+    this.updateStyleforSuit();
     for (let suit = 0; suit < 4; suit++) {
       for (let index = 14; index > 1; index--) {
         this.cards.push({ "name": "./assets/svg/svg-cards.svg#" + this.suits[suit] + "_" + index, "x": (580 - index * 40), "y": suit * height, "selected": false, "color": this.color[suit] });
       }
     }
   }
+
+  updateStyleforSuit() {
+    var sheet = document.createElement('style')
+    sheet.innerHTML = ".spades { color: "+ this.color[0] + "; }";
+    sheet.innerHTML += ".hearts { color: " + this.color[1] + "; }";
+    sheet.innerHTML += ".diamonds { color: " + this.color[2] + "; }";
+    sheet.innerHTML += ".clubs { color: " + this.color[3] + "; }";
+    document.body.appendChild(sheet);    
+  }
+
   colorSwitch() {
     this.colorIndex = (this.colorIndex + 1) % 10;
     this.color = this.colors[this.colorIndex];
@@ -94,6 +105,7 @@ export class HomePage implements OnInit {
         this.cards[suit * 13 + index -2].color =  this.color[suit];
       }
     }
+    this.updateStyleforSuit();
   }
 
   selectCard(card) {
@@ -150,10 +162,11 @@ export class HomePage implements OnInit {
   calculateStoppers() {
     // http://www.rpbridge.net/8j17.htm
     this.stoppers[0] = this.suitStopperCheck(this.spades, 0);
-    this.stoppers[0] = this.suitStopperCheck(this.hearts, 1);
-    this.stoppers[0] = this.suitStopperCheck(this.diamonds, 2);
-    this.stoppers[0] = this.suitStopperCheck(this.clubs, 3);
+    this.stoppers[1] = this.suitStopperCheck(this.hearts, 1);
+    this.stoppers[2] = this.suitStopperCheck(this.diamonds, 2);
+    this.stoppers[3] = this.suitStopperCheck(this.clubs, 3);
   }
+
   suitStopperCheck(suit: any[], color: number) {
     var hcp = this.hcpInOneSuit(suit);
     if (hcp > 6) {
