@@ -105,6 +105,11 @@
             "scripts": [],
             "assets": [
               {
+                "glob": "robots.txt",
+                "input": "src/",
+                "output": "/"
+              },
+              {
                 "glob": "favicon.ico",
                 "input": "src/",
                 "output": "/"

@@ -1,0 +1,315 @@
+#Opdateret 08.04.2021
+#START AGENT SPECIFIC DISALLOWS
+
+#START AGENT SPECIFIC DISALLOWS
+
+User-agent: Abacho
+Disallow: /
+
+User-agent: accoona
+Disallow: /
+
+User-agent: acontbot
+Disallow: /
+
+User-agent: Adsbot
+Disallow: /
+
+User-agent: Adsbot/3.1
+Disallow: /
+
+# http://seocompany.store
+User-Agent: adscanner
+Disallow: /
+
+User-agent: ah-ha
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: aipbot
+Disallow: /
+
+User-agent: AnswerBus
+Disallow: /
+
+User-agent: appie
+Disallow: /
+
+User-agent: Arachmo
+Disallow: /
+
+User-agent: Argus
+Disallow: /
+
+User-agent: AspiegelBot
+Disallow: /
+
+User-agent: ASPSeek
+Disallow: /
+
+User-agent: asterias
+Disallow: /
+
+User-agent: BigCliqueBOT
+Disallow: /
+
+User-agent: boitho
+Disallow: /
+
+User-agent: Boitho-robot
+Disallow: /
+
+User-agent: BruinBot
+Disallow: /
+
+User-agent: btbot
+Disallow: /
+
+User-agent: CipinetBot
+Disallow: /
+
+User-agent: ConveraCrawler
+Disallow: /
+
+User-agent: cosmos
+Disallow: /
+
+User-agent: CostaCider
+Disallow: /
+
+User-agent: CrawlConvera
+Disallow: /
+
+User-agent: CrawlWave
+Disallow: /
+
+User-agent: CXL-FatAssANT
+Disallow: /
+
+User-agent: DataCha0s
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Eule-Robot
+Disallow: /
+
+User-agent: eventax
+Disallow: /
+
+User-agent: Exabot
+Disallow: /
+
+User-agent: FDSE
+Disallow: /
+
+User-agent: FirstGov.gov Search
+Disallow: /
+
+User-agent: fluffy
+Disallow: /
+
+User-agent: Galaxy
+Disallow: /
+
+User-agent: Girafabot
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: holmes
+Disallow: /
+
+User-agent: Hotzonu
+Disallow: /
+
+User-agent: htdig
+Disallow: /
+
+User-agent: http://www.btbot.com/btbot.html
+Disallow: /
+
+User-agent: jyxobot
+Disallow: /
+
+User-agent: ichiro
+Disallow: /
+
+User-agent: IconSurf
+Disallow: /
+
+User-agent: Iltrovatore-Setaccio
+Disallow: /
+
+User-agent: InnerpriseBot
+Disallow: /
+
+User-agent: intraVnews
+Disallow: /
+
+User-agent: Mackster
+Disallow: /
+
+User-agent: MauiBot
+Disallow: /
+
+User-agent: Mirago
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: Mnogosearch
+Disallow: /
+
+User-agent: MonkeyCrawl
+Disallow: /
+
+User-agent: MSNPTC
+Disallow: /
+
+User agent: MTRobot
+Disallow: /
+
+User-agent: NetMind-Minder
+Disallow: /
+
+User-agent: Networking4all
+Disallow: /
+
+User-agent: NextGenSearchBot
+Disallow: /
+
+User-agent: NLCrawler
+Disallow: /
+
+User-agent: Nutch
+Disallow: /
+
+User-agent: Ocelli
+Disallow: /
+
+User-agent: Pajaczek
+Disallow: /
+
+User-agent: Patwebbot
+Disallow: /
+
+User-agent: PEERbot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: PhpDig
+Disallow: /
+
+User-agent: pipeLiner
+Disallow: /
+
+User-agent: polybot
+Disallow: /
+
+User-agent: Pompos
+Disallow: /
+
+User-agent: QweeryBot
+Disallow: /
+
+User-agent: SANSARN
+Disallow: /
+
+User-agent: Scrubby
+Disallow: /
+
+User-agent: search.ch
+Disallow: /
+
+User-agent: SearchSpider
+Disallow: /
+
+User-agent: Seekbot
+Disallow: /
+
+User-agent: Seekport Crawler
+Disallow: /
+
+User-agent: Seekport Crawler
+Disallow: /
+
+User-agent: seolyt
+Disallow: /
+
+User-agent: Sensis.com.au Web Crawler
+Disallow: /
+
+User-agent: SideWinder
+Disallow: /
+
+User-agent: SiteSpider
+Disallow: /
+
+User-agent: sna-0.0.1
+Disallow: /
+
+User-agent: snap.com
+Disallow: /
+
+User-agent: SpeedySpider
+Disallow: /
+
+User-agent: Squid-Prefetch
+Disallow: /
+
+User-agent: StackRambler
+Disallow: /
+
+User-agent: Szukacz
+Disallow: /
+
+User-agent: Tkensaku
+Disallow: /
+
+User-agent: TutorGigBot
+Disallow: /
+
+User-agent: Ultraseek
+Disallow: /
+
+User-agent: unchaos_crawler
+Disallow: /
+
+User-agent: updated
+Disallow: /
+
+User-agent: Vagabondo
+Disallow: /
+
+User-agent: W3CRobot
+Disallow: /
+
+User-agent: webcrawl.net
+Disallow: /
+
+User-agent: Wotbox
+Disallow: /
+
+User-agent: Zao
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: / 
+
+User-agent: Yandex
+Disallow: / 
+
+#END AGENT SPECIFIC DISALLOWS
+
+#START SITE SPECIFIC DISALLOWS
+
+User-agent: *
+#END SITE SPECIFIC DISALLOWS

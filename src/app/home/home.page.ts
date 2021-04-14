@@ -24,7 +24,7 @@ export class HomePage implements OnInit {
   hearts: any[];
   diamonds: any[];
   clubs: any[];
-  loosers: number;
+  Losers: number;
   dt: any[];
   fnr: number;
   knr: number;
@@ -147,7 +147,7 @@ export class HomePage implements OnInit {
     this.findHandType();
     this.calculateDistributionPoints();
     this.calculateLengthPoints();
-    this.calculateLoosers();
+    this.calculateLosers();
     this.calculateFreakness();
     this.calculateStoppers();
     this.calculateKNR();
@@ -197,7 +197,7 @@ export class HomePage implements OnInit {
       if (suit.length == 3 && suit[2] == 10) {
         return 1.5;
       }
-      return 1;
+      return 2;
     }
     if (hcp == 4) {
       if (suit[0] == 14) {
@@ -280,7 +280,7 @@ export class HomePage implements OnInit {
     var hcp = this.hcpInOneSuit(suit);
     //console.log(hcp);
     if (suit.length < 4) {
-      return "To short";
+      return "Too short";
     }
     if (hcp == 10) {
       return "Solid";
@@ -368,6 +368,8 @@ export class HomePage implements OnInit {
         if (suitLengths[2] == 2) {
           this.handtype = "Semi balanced (Single suited)";
           return;
+        } else {
+          this.handtype = "Semi balanced (Single suited)";
         }
       }
     }
@@ -381,7 +383,7 @@ export class HomePage implements OnInit {
             this.handtype = "Three suited";
             return;
           } else {
-            this.handtype = "Balanced (Single suited)";
+            this.handtype = "Balanced (Two suited)";
             return;
           }
         }
@@ -419,28 +421,28 @@ export class HomePage implements OnInit {
     }
   }
 
-  calculateLoosers() {
-    this.loosers = 0;
-    this.calculateLooserCount(this.spades)
-    this.calculateLooserCount(this.hearts)
-    this.calculateLooserCount(this.diamonds)
-    this.calculateLooserCount(this.clubs)
+  calculateLosers() {
+    this.Losers = 0;
+    this.calculateLoserCount(this.spades)
+    this.calculateLoserCount(this.hearts)
+    this.calculateLoserCount(this.diamonds)
+    this.calculateLoserCount(this.clubs)
   }
 
-  calculateLooserCount(suit) {
+  calculateLoserCount(suit) {
     if (suit.length > 0) {
       if (suit[0] != 14) {
-        this.loosers++;
+        this.Losers++;
       }
     }
     if (suit.length > 1) {
       if (suit[0] != 13 && suit[1] != 13) {
-        this.loosers++;
+        this.Losers++;
       }
     }
     if (suit.length > 2) {
       if (suit[0] != 12 && suit[1] != 12 && suit[2] != 12) {
-        this.loosers++;
+        this.Losers++;
       }
     }
   }

@@ -19,10 +19,10 @@ export class KaplanrubenService {
       var suitLength = this.getSuitLength(suit);
       minLength = Math.min(minLength, suitLength);
       suitKnr = suitLength * this.calculatesuitLevel1(suit, suitLength) / 10;
-      //console.log("suitKNR(1): " + suitKnr);
+      console.log("suitKNR(1): " + suitKnr);
       suitKnr += this.calculatesuitLevel2(suit, suitLength);
       KNR += suitKnr;
-      //console.log("suitKNR(2): " + suitKnr);
+      console.log("suitKNR(2): " + suitKnr);
     }
 
     KNR += -1;
@@ -79,11 +79,11 @@ export class KaplanrubenService {
       }
     }
     //Step 20
-    if (this.hasCard(suit, 11) && this.honorCount(suit) == 2) {
+    if (this.hasCard(suit, 11) && this.honorCount(suit) == 3) {
       sum += 0.5;
     }
     //Step 21
-    if (this.hasCard(suit, 11) && this.honorCount(suit) == 1) {
+    if (this.hasCard(suit, 11) && this.honorCount(suit) == 2) {
       sum += 0.25;
     }
     //Step 22
@@ -141,7 +141,7 @@ export class KaplanrubenService {
     }
     //Step 7
     if (len <= 6 && len >= 2) {
-      if (this.hasCard(suit, 8) && (this.hasCard(suit, 9) && this.hasCard(suit, 10) ||  this.honorCount(suit) == 2 )) {
+      if (this.hasCard(suit, 9) && (this.hasCard(suit, 8) || this.hasCard(suit, 10) ||  this.honorCount(suit) == 2 )) {
         sum += 0.5;
       }
     }
