@@ -10,7 +10,7 @@
           "/robots.txt",
           "/favicon.ico",
           "/index.html",
-          "/manifest.webmanifest",
+          "/manifest.webmanifest.json",
           "/*.css",
           "/*.js"
         ]
