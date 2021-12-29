@@ -10,7 +10,7 @@ export class KaplanrubenService {
 
   }
 
-  calcualteKNR(cards) {
+  calculateKNR(cards) {
     var KNR = 0;
     var minLength = 13;
     for (let index = 0; index < 4; index++) {
@@ -19,10 +19,10 @@ export class KaplanrubenService {
       var suitLength = this.getSuitLength(suit);
       minLength = Math.min(minLength, suitLength);
       suitKnr = suitLength * this.calculatesuitLevel1(suit, suitLength) / 10;
-      console.log("suitKNR(1): " + suitKnr);
+      //console.log("suitKNR(1): " + suitKnr);
       suitKnr += this.calculatesuitLevel2(suit, suitLength);
       KNR += suitKnr;
-      console.log("suitKNR(2): " + suitKnr);
+      //console.log("suitKNR(2): " + suitKnr);
     }
 
     KNR += -1;

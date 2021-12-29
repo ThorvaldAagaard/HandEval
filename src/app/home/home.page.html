@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="app-header-statusbar">
   <ion-toolbar mode="ios">
     <ion-title size="small">
-      Bridge Hand Evaluation. V1.0.4
+      Bridge Hand Evaluation. V1.0.5
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -29,10 +29,14 @@
       <br>
       <div class="row2">
         <div class="column2 small">
-          High Card Points: {{hcpSum}}<br>
-          Kaplan Rubens: {{knr | number:'1.1-1'}}<br>
+          High Card Points (hcp): {{hcpSum}}<br>
+          Kaplan Rubens (knr): {{knr | number:'1.1-1'}}<br>
           Controls: {{ctr}}<br>
-          Short Suit Points: {{dpr}}<br>
+          Short Suit Points: {{dpr}}<br><br>
+          Trick-Taking Source (TTS): {{tts}}<br>
+          Quality Points (QP): {{qp}}<br><br>
+          Force Points (B#): {{fp}}<br>
+          Control Points (CP): {{cp}}<br>
         </div>
         <div class="column2 small">
           Length Points: {{lp}}<br>
@@ -45,6 +49,9 @@
       <br>
       <div class="small">
       Handtype: {{handtype}}<br>
+      Shape: {{shape}}<br>
+      Generic Shape: {{genericShape}}<br>
+      RuleOf: {{ruleOf}}<br>
       Suit Qualities: <span class="small"><br>{{sqc[0]}} <span class='spades'>&spades;</span>, {{sqc[1]}} <span class='hearts'>&hearts;</span>, {{sqc[2]}} <span
         class='diamonds'>&diams;</span>, {{sqc[3]}} <span class='clubs'>&clubs;</span></span><br>
       Stoppers:<br> <span class="small">

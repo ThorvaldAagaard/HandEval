@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { KaplanrubenService } from '../kaplanruben.service';
+import { TricktakingsourceService } from '../tricktakingsource.service';
 
 @Component({
   selector: 'app-home',
@@ -27,25 +28,32 @@ export class HomePage implements OnInit {
   Losers: number;
   dt: any[];
   fnr: number;
+  fp: number;
+  cp: number;
   knr: number;
   ot: number;
   screen: any;
   handtype: string = "";
+  shape: any;
+  genericShape: any;
+  ruleOf: any;
   hcpSum: any;
   dtSum: number;
   color: string[];
   colorIndex = 0;
   colors = [["#000000", "#E6180A", "#E6180A", "#000000"],
-   ["#0000FF", "#FF0000", "#FFA500", "#00C000"],
-   ["black", "red", "blue", "green"],
-   ["green", "red", "yellow", "black"],
-   ["black", "red", "orange", "blue"],
-   ["black", "red", "yellow", "blue"],
-   ["black", "red", "orange", "green"],
-   ["black", "red", "yellow", "green"],
-   ["blue", "red", "orange", "pink"],
+  ["#0000FF", "#FF0000", "#FFA500", "#00C000"],
+  ["black", "red", "blue", "green"],
+  ["green", "red", "yellow", "black"],
+  ["black", "red", "orange", "blue"],
+  ["black", "red", "yellow", "blue"],
+  ["black", "red", "orange", "green"],
+  ["black", "red", "yellow", "green"],
+  ["blue", "red", "orange", "pink"],
   ["black", "orange", "yellow", "pink"]];
-  constructor(public platform: Platform, private kaplanRubens: KaplanrubenService) {
+  qp: number;
+  tts: any;
+  constructor(public platform: Platform, private kaplanRubens: KaplanrubenService, private ttsService: TricktakingsourceService) {
     platform.ready().then(() => {
       console.log('Width: ' + platform.width());
       console.log('Height: ' + platform.height());
@@ -66,8 +74,8 @@ export class HomePage implements OnInit {
       console.log("scale = " + this.scale);
       this.width = (4 * 169.075) * scale;
       this.height = (2 * 244.640) * scale;
-      height = (244.640 / 3); 
-      this.height = ((244.640) + 3 * height) * scale ;
+      height = (244.640 / 3);
+      this.height = ((244.640) + 3 * height) * scale;
     }
     if (this.platform.isLandscape()) {
       // In landscape the desc takes the left half, and the hand the right half
@@ -89,11 +97,11 @@ export class HomePage implements OnInit {
 
   updateStyleforSuit() {
     var sheet = document.createElement('style')
-    sheet.innerHTML = ".spades { color: "+ this.color[0] + "; }";
+    sheet.innerHTML = ".spades { color: " + this.color[0] + "; }";
     sheet.innerHTML += ".hearts { color: " + this.color[1] + "; }";
     sheet.innerHTML += ".diamonds { color: " + this.color[2] + "; }";
     sheet.innerHTML += ".clubs { color: " + this.color[3] + "; }";
-    document.body.appendChild(sheet);    
+    document.body.appendChild(sheet);
   }
 
   colorSwitch() {
@@ -102,7 +110,7 @@ export class HomePage implements OnInit {
     for (let suit = 0; suit < 4; suit++) {
       for (let index = 14; index > 1; index--) {
         console.log(this.cards[suit * 13 + index - 2])
-        this.cards[suit * 13 + index -2].color =  this.color[suit];
+        this.cards[suit * 13 + index - 2].color = this.color[suit];
       }
     }
     this.updateStyleforSuit();
@@ -139,7 +147,6 @@ export class HomePage implements OnInit {
     //console.log(this.selectedCards);
     this.calculateHCP();
     this.calculateControls();
-    //    if (count == 13) {
     this.findSuits();
     this.findSuitQualities();
     this.calculateDefensiveTricks();
@@ -151,12 +158,17 @@ export class HomePage implements OnInit {
     this.calculateFreakness();
     this.calculateStoppers();
     this.calculateKNR();
-    //    }
+    this.calculateTTS();
+    this.calculateQP();
+    this.calculateFP();
+    this.calculateCP();
+    if (count == 13) {
+    }
   }
 
   calculateKNR() {
     // http://www.rpbridge.net/8j19.htm
-    this.knr = this.kaplanRubens.calcualteKNR(this.cards)
+    this.knr = this.kaplanRubens.calculateKNR(this.cards)
   }
 
   calculateStoppers() {
@@ -308,10 +320,10 @@ export class HomePage implements OnInit {
 
   hcpInOneSuit(suit: any[]) {
     var hcp = 0;
-    if (suit.indexOf(14) > -1) { hcp += 4 };
-    if (suit.indexOf(13) > -1) { hcp += 3 };
-    if (suit.indexOf(12) > -1) { hcp += 2 };
-    if (suit.indexOf(11) > -1) { hcp += 1 };
+    if (suit.indexOf(14) > -1) { hcp += 4 }
+    if (suit.indexOf(13) > -1) { hcp += 3 }
+    if (suit.indexOf(12) > -1) { hcp += 2 }
+    if (suit.indexOf(11) > -1) { hcp += 1 }
     return hcp;
   }
 
@@ -352,6 +364,9 @@ export class HomePage implements OnInit {
     suitLengths.sort(function (a, b) {
       return b - a;
     });
+    this.genericShape = "" + suitLengths[0] + suitLengths[1] + suitLengths[2] + suitLengths[3];
+    this.shape = "" + this.spades.length + "=" + this.hearts.length + "=" + this.diamonds.length + "=" + this.clubs.length;
+    this.ruleOf = this.hcpSum + suitLengths[0] + suitLengths[1];
     if (suitLengths[0] == 8 && suitLengths[1] == 5) {
       this.handtype = "Two suited";
       return;
@@ -399,7 +414,6 @@ export class HomePage implements OnInit {
       }
     }
     this.handtype = "Single suited";
-    //console.log(suitLengths);
   }
 
   calculateFreakness() {
@@ -556,6 +570,101 @@ export class HomePage implements OnInit {
     }
   }
 
+  calculateFP() {
+    this.fp = -2;
+    var suitLengths = [this.spades.length, this.hearts.length, this.diamonds.length, this.clubs.length]
+    suitLengths.sort(function (a, b) {
+      return b - a;
+    });
+    for (let suit = 0; suit < 4; suit++) {
+      this.fp += this.fpInSuit(this.getSuit(suit));
+    }
+    if (suitLengths[0] > 5 && suitLengths[1] > 4) {
+      this.fp += (suitLengths[0] + suitLengths[1] - 10) * 0.5;
+    }
+    this.fp += this.fpAdjust();
+  }
+
+  private fpInSuit(suit: any): number {
+    var fp = 0;
+    if (suit.length == 0) {
+      return 1
+    }
+    if (suit.length == 1) {
+      if (suit[0] == 14) {
+        return 2
+      }
+      return 0.5;
+    }
+    if (this.genericShape == "7222") {
+      fp += 0.5;
+    }
+    if (suit.length > 6 && this.hcpInOneSuit(suit) > 0) {
+      fp = (suit.length - 6) * 0.5;
+    }
+    if (suit[0] == 14)
+      if (suit[1] == 13) {
+        if (suit[2] == 12) {
+          return fp + 3
+        } else {
+          return fp + 2.5
+        }
+      } else {
+        if (suit[1] == 12) {
+          return fp + 2
+        } else {
+          return fp + 1.5
+        }
+      }
+    if (suit[0] == 13) {
+      if (suit[1] == 12) {
+        return fp + 1.5
+      } else {
+        return fp + 1
+      }
+    }
+    if (suit[0] == 12) {
+      return fp + 0.5
+    }
+    return fp;
+  }
+
+  calculateCP() {
+    this.cp = 0;
+    for (let suit = 0; suit < 4; suit++) {
+      this.cp += this.cpInSuit(this.getSuit(suit));
+    }
+  }
+
+  private cpInSuit(suit: any) {
+    if (suit.length == 0) {
+      return 6;
+    }
+    if (suit.length == 1) {
+      if (suit[0] == 14) {
+        return 6
+      }
+      return 4;
+    }
+    if (suit[0] == 14)
+      if (suit[1] == 13) {
+        return 10
+      } else {
+        return 6
+      }
+    if (suit[0] == 13) {
+      return 4
+    }
+    return 0;
+  }
+
+  calculateQP() {
+    this.qp = 0;
+    for (let suit = 0; suit < 4; suit++) {
+      this.qp += this.qpInSuit(suit);
+    }
+  }
+
   private hcpInSuit(suit: number) {
     var hcp = 0;
     for (let index = 0; index < 4; index++) {
@@ -565,4 +674,24 @@ export class HomePage implements OnInit {
     }
     return hcp;
   }
+
+  private qpInSuit(suit: number) {
+    var hcp = 0;
+    for (let index = 0; index < 4; index++) {
+      if (this.cards[(suit) * 13 + index].selected) {
+        hcp += 3 - index;
+      }
+    }
+    return hcp;
+  }
+
+  private calculateTTS() {
+    this.tts = this.ttsService.calculateTTS(this.cards, this.hcpSum);
+    console.log("TTS: " + this.tts);
+  }
+
+  private fpAdjust() {
+    return 0;
+  }
 }
+
