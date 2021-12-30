@@ -1,3 +1,3 @@
 # HandEval
 Bridge Hand Evaluator
-https://www.snippen.dk
+https://handeval.snippen.dk
