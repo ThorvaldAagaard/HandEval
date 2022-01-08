@@ -582,6 +582,15 @@ export class HomePage implements OnInit {
     if (suitLengths[0] > 5 && suitLengths[1] > 4) {
       this.fp += (suitLengths[0] + suitLengths[1] - 10) * 0.5;
     }
+    var doubleton = 0;
+    for (let suit = 0; suit < 4; suit++) {
+      if (this.getSuit(suit).length == 2) {
+        doubleton += 1;
+      };
+    }
+    if (doubleton == 2) {
+      this.fp += 0.5
+    }
     this.fp += this.fpAdjust();
   }
 

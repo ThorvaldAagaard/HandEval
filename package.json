@@ -1,12 +1,12 @@
 {
-  "name": "HandEval",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "handeval",
+  "version": "1.0.6",
+  "author": "Thorvald Aagaard",
+  "homepage": "https://handeval.snippen.dk/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --output-hashing=all",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -54,5 +54,5 @@
     "tslint": "~6.1.0",
     "typescript": "~3.9.5"
   },
-  "description": "An Ionic project"
+  "description": "Evaluating a bridge hand"
 }
