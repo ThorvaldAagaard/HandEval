@@ -26,6 +26,7 @@ export class HomePage implements OnInit {
   diamonds: any[];
   clubs: any[];
   Losers: number;
+  MLosers: number;
   dt: any[];
   fnr: number;
   fp: number;
@@ -447,16 +448,19 @@ export class HomePage implements OnInit {
     if (suit.length > 0) {
       if (suit[0] != 14) {
         this.Losers++;
+        this.MLosers += 1.5 ;
       }
     }
     if (suit.length > 1) {
       if (suit[0] != 13 && suit[1] != 13) {
         this.Losers++;
+        this.MLosers++;
       }
     }
     if (suit.length > 2) {
       if (suit[0] != 12 && suit[1] != 12 && suit[2] != 12) {
         this.Losers++;
+        this.MLosers += 0.5;
       }
     }
   }
